@@ -1,0 +1,16 @@
+.vehiclesCard {
+  min-width: 320px;
+  font-size: 25px;
+}
+
+@media screen and (max-width: 900px) {
+  .vehiclesCard {
+    font-size: 20px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .vehiclesCard {
+    font-size: 16px;
+  }
+}

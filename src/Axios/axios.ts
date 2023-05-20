@@ -1,7 +1,9 @@
-import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
+import axios, { AxiosError, AxiosResponse } from "axios";
+
+export const baseURL = "https://swapi.dev/api";
 
 const http = axios.create({
-  baseURL: "https://swapi.dev/api",
+  baseURL,
 });
 
 http.interceptors.response.use(

@@ -1,4 +1,4 @@
-import { Col, Row, Space } from "antd";
+import { Col, Empty, Row } from "antd";
 import { useAppDispatch, useAppSelector } from "../../Store/hooks";
 import { useEffect } from "react";
 import { getPeople } from "../../Store/People/peopleActionCreator";
@@ -6,12 +6,13 @@ import PeopleCard from "../../Components/PeopleCard";
 import SearchInput from "../../Components/SearchInput";
 import Loading from "../../Components/Loading";
 import PaginationMenu from "../../Components/Pagination";
+import { Link } from "react-router-dom";
 
 const Main = () => {
   const dispatch = useAppDispatch();
 
   const people = useAppSelector((state) => state.people.data.results);
-  const { loading, pageNumber, search } = useAppSelector(
+  const { loading, pageNumber, search, error } = useAppSelector(
     (state) => state.people
   );
 
@@ -22,10 +23,11 @@ const Main = () => {
   return (
     <>
       <Row justify="center">
-        <Col span={6}>
+        <Col xl={6} lg={8}>
           <SearchInput />
         </Col>
       </Row>
+      {error ? <Row>Something was wrong</Row> : null}
       {loading ? (
         <Row justify="center" style={{ marginTop: "20px" }}>
           <Loading />
@@ -33,20 +35,27 @@ const Main = () => {
       ) : (
         <>
           <Row justify="center">
-            {people.length > 0
-              ? people.map((info) => (
-                  <Col
-                    span={3}
-                    offset={1}
-                    style={{ marginTop: "20px", marginRight: "20px" }}
-                  >
+            {people.length > 0 ? (
+              people.map((info) => (
+                <Col
+                  lg={4}
+                  xl={3}
+                  offset={1}
+                  style={{ marginTop: "20px", marginRight: "20px" }}
+                >
+                  <Link to={`/profile/${info.url.split("/").at(-2)}`}>
                     <PeopleCard info={info} />
-                  </Col>
-                ))
-              : `Not Found ${search}`}
+                  </Link>
+                </Col>
+              ))
+            ) : (
+              <Empty style={{ marginTop: 10 }} />
+            )}
           </Row>
           <Row justify="center" style={{ marginTop: "50px" }}>
-            <PaginationMenu />
+            <Col>
+              <PaginationMenu />
+            </Col>
           </Row>
         </>
       )}

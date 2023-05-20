@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import type { PaginationProps } from "antd";
 import { Pagination } from "antd";
 import { useAppDispatch, useAppSelector } from "../../Store/hooks";

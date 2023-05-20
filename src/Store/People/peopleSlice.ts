@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { PayloadAction } from "@reduxjs/toolkit/dist/createAction";
 
-export interface People {
+export interface Profile {
   name: string;
   height: string;
   mass: string;
@@ -24,7 +24,7 @@ export interface RequestState {
   count: number;
   next: string | null;
   previous: string | null;
-  results: People[];
+  results: Profile[];
 }
 
 export interface PeopleState {
