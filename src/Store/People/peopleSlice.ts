@@ -31,6 +31,8 @@ export interface PeopleState {
   data: RequestState;
   loading: boolean;
   error: string | null;
+  pageNumber: number;
+  search: string;
 }
 
 const initialState: PeopleState = {
@@ -42,16 +44,22 @@ const initialState: PeopleState = {
   },
   loading: false,
   error: null,
+  pageNumber: 1,
+  search: "",
 };
 
 export const peopleSlice = createSlice({
   name: "people",
   initialState,
   reducers: {
-    setPeople: (state, action: PayloadAction<RequestState>) => {
-      state.data = action.payload;
+    setPeople: (
+      state,
+      action: PayloadAction<{ data: RequestState; search: string }>
+    ) => {
+      state.data = action.payload.data;
       state.loading = false;
       state.error = null;
+      state.search = action.payload.search;
     },
     setLoading: (state) => {
       state.loading = true;
@@ -61,9 +69,13 @@ export const peopleSlice = createSlice({
       state.error = action.payload;
       state.loading = false;
     },
+    setPageNumber: (state, action: PayloadAction<number>) => {
+      state.pageNumber = action.payload;
+    },
   },
 });
 
-export const { setPeople, setLoading, setError } = peopleSlice.actions;
+export const { setPeople, setLoading, setError, setPageNumber } =
+  peopleSlice.actions;
 
 export default peopleSlice.reducer;
